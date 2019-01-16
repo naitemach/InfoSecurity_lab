@@ -2,19 +2,27 @@ pd=[57,49,41,33,25,17,9,1,58,50,42,34,26,18,10,2,59,51,43,35,27,19,11,3,60,52,44
 cb=[14,17,11,24,1,5,3,28,15,6,21,10,23,19,12,4,26,8,16,7,27,20,13,2,41,52,31,37,47,55,30,40,51,45,33,48,44,49,39,56,34,53,46,42,50,36,29,32]
 
 
-
 def int2bin(x, n=0):
 	return format(x, 'b').zfill(n)
 
 def leftShift(x,y):
-    x = x[y:]
-    for i in range(y):
-        x = x+'0'
+    x = x[y:] + x[:y]
     return x
 
+a = input("Enter the string: ")
+a = a.replace(' ','')
+n = len(a)
 
-# a = input("Enter the string: ")
-# a = a.replace(' ','')
+if n > 8:
+    choice = int(input("Enter the choice 1 or 2: "))
+elif n <8:
+    print("ERROR: Enter atleast 8 characters")
+
+if choice == 1:
+    a=a[:8]
+else:
+    a=a[n-8:]
+
 # b = []
 # for i in a:
 # 	b.append(i)
@@ -30,12 +38,15 @@ def leftShift(x,y):
 # 	for j in range(8):
 # 		temp = temp + b[i+j]
 # 	blocks.append(temp)
-
-
-a="1000101000101011010101000001010010100000101001010010101010101010"
+#a="NITKSura"
+temp=""
+for i in a:
+    temp += int2bin(ord(i),8)
+a=temp
+#a="1000101000101011010101000001010010100000101001010010101010101010"
 
 opd=""
-for i in range(64):
+for i in range(56):
 	opd = opd + a[pd[i]-1]
 
 left = opd[0:28]

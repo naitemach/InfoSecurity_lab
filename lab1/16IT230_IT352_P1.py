@@ -8,6 +8,7 @@ def int2bin(x, n=0):
 
 
 a = input("Enter the string: ")
+print()
 a = a.replace(' ','')
 b = []
 for i in a:
@@ -26,6 +27,10 @@ for i in range(0,l,8):
 	blocks.append(temp)
 
 for block in blocks:
+	print("Input : ",end="")
+	for i in range(0,64,8):
+		print(chr(int(block[i:i+8],2)),end="")
+	print()
 	print("block : "+block)
 	oip = ''
 	for i in range(64):
@@ -40,6 +45,10 @@ for block in blocks:
 			break
 		if i==63:
 			print("Output of final permutation is same as respective 64bits input block")
+	print("output : ",end="")
+	for i in range(0,64,8):
+		print(chr(int(ofp[i:i+8],2)),end="")
+	print()
 	print()
 
 
