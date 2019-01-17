@@ -23,27 +23,10 @@ if choice == 1:
 else:
     a=a[n-8:]
 
-# b = []
-# for i in a:
-# 	b.append(i)
-# c = 8-(len(b) % 8)
-# for i in range(c):
-# 	b.append(' ')
-# l = len(b)
-# for i in range(l):
-# 	b[i] = int2bin(ord(b[i]),8)
-# blocks=[]
-# for i in range(0,l,8):
-# 	temp=''
-# 	for j in range(8):
-# 		temp = temp + b[i+j]
-# 	blocks.append(temp)
-#a="NITKSura"
 temp=""
 for i in a:
     temp += int2bin(ord(i),8)
 a=temp
-#a="1000101000101011010101000001010010100000101001010010101010101010"
 
 opd=""
 for i in range(56):
@@ -64,25 +47,5 @@ for i in range(1,17):
     for j in range(48):
         ocb=ocb+icb[cb[j]-1]
     print("key " + str(i) + "  : " + ocb)
-
-
-
-
-# for block in blocks:
-# 	print("block : "+block)
-# 	oip = ''
-# 	for i in range(64):
-# 		oip = oip + block[ip[i]-1]
-# 	print("output of initial permutation : "+oip)
-# 	ofp = ''
-# 	for i in range(64):
-# 		ofp = ofp + oip[fp[i]-1]
-# 	print("output of final permutation : "+ofp)
-# 	for i in range(64):
-# 		if block[i] != ofp[i]:
-# 			break
-# 		if i==63:
-# 			print("Output of final permutation is same as respective 64bits input block")
-# 	print()
 
 
