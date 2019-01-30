@@ -57,49 +57,34 @@ def xor(a,b,l):
 			c+='1'
 	return c
 
-f=open("keys.txt",'r')
+tc = int(input("Enter the test case: "))
+ptfile="PT-TC" + str(tc) + ".txt"
+rkfile="RK-TC" + str(tc) + ".txt"
+f=open(rkfile,'r')
 contents  = f.read()
 keys = contents.split('\n')[:16]
 f.close()
 
 blocks=[]
-f=open("plaintext.txt",'r')
+f=open(ptfile,'r')
 contents  = f.read()
-textl = contents.split('\n')[:16]
+text = contents
 f.close()
 
-text=""
-for i in textl:
-	if i != '':
-		text += i
+blocks=[]
+blocks.append(text)
+ofile=''
 
-l= len(text)
-c = 64 - (l % 64)
-for i in range(c):
-	text += '0'
-l= len(text)
-
-for i in range(0,l,64):
-	temp=''
-	for j in range(64):
-		temp = temp + text[i+j]
-	blocks.append(temp)
-ofile = ''
 
 for block in blocks:
 	#input
-	print("Input : ",end="")
-	for i in range(0,64,8):
-		print(chr(int(block[i:i+8],2)),end="")
+	print("Input: ",end="")
+	for l in range(0,64,8):
+		print(block[l:l+8],end=" ")
 	print()
-	print("block : "+block)
+	print()
+
 	
-	#Initial Permutation
-	oip = ''
-	for i in range(64):
-		oip = oip + block[ip[i]-1]
-	print("output of initial permutation : "+oip)
-	print()
 
 	#16 Rounds of DES
 	left = block[:32]
@@ -140,28 +125,28 @@ for block in blocks:
 		if i == 15:
 			left = xor(left,right,32)
 			right = temp
-			print("output of round " + str(i+1) + " :-")
-			print("left  :- " + left)
-			print("right :- " + right)
-			print()
 			block = left+right
 			ofile += block
 		else:
 			right = xor(left,right,32)
 			left = temp
+		if i>=9:
+			print("output of round " + str(i+1) + " :-",end="")
+		else:
+			print("output of round  " + str(i+1) + " :-",end="")
+		outtext = left+right
+		for l in range(0,64,8):
+			print(outtext[l:l+8],end=" ")
+		print()
 
-	#Final Permutation
-	ofp = ''
-	for i in range(64):
-		ofp = ofp + oip[fp[i]-1]
-	print("output of final permutation : "+ofp)
-	
+
 	#output
-	print("output : ",end="")
-	for i in range(0,64,8):
-		print(chr(int(ofp[i:i+8],2)),end="")
 	print()
+	print("output: ",end="")
+	for l in range(0,64,8):
+		print(block[l:l+8],end=" ")
 	print()
+
 
 f = open('Output-Program-3.txt',"w+")
 f.write(ofile)
