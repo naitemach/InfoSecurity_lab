@@ -84,6 +84,7 @@ for i in range(0,l,64):
 	for j in range(64):
 		temp = temp + text[i+j]
 	blocks.append(temp)
+ofile = ''
 
 for block in blocks:
 	#input
@@ -139,16 +140,15 @@ for block in blocks:
 		if i == 15:
 			left = xor(left,right,32)
 			right = temp
+			print("output of round " + str(i+1) + " :-")
+			print("left  :- " + left)
+			print("right :- " + right)
+			print()
+			block = left+right
+			ofile += block
 		else:
 			right = xor(left,right,32)
 			left = temp
-
-		print("output of round " + str(i+1) + " :-")
-		print("left  :- " + left)
-		print("right :- " + right)
-
-	print()
-	block = left+right
 
 	#Final Permutation
 	ofp = ''
@@ -162,3 +162,7 @@ for block in blocks:
 		print(chr(int(ofp[i:i+8],2)),end="")
 	print()
 	print()
+
+f = open('Output-Program-3.txt',"w+")
+f.write(ofile)
+f.close()
