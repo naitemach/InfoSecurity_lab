@@ -128,9 +128,11 @@ def main():
 	b = []
 	for i in a:
 		b.append(i)
-	c = 8-(len(b) % 8)
-	for i in range(c):
-		b.append(' ')
+	m = (len(b) % 8)
+	if m != 0:
+		c = 8-m
+		for i in range(c):
+			b.append(' ')
 	l = len(b)
 	for i in range(l):
 		b[i] = int2bin(ord(b[i]),8)
@@ -162,6 +164,9 @@ def main():
 	keys=genRk(a)
 
 	ofile=''
+
+	blockCount=0 
+
 	for block in blocks:
 		#input
 		# print("Input: ",end="")
@@ -170,23 +175,32 @@ def main():
 		# print()
 		# print()
 
+		blockCount += 1
+		print("---------------Block " + str(blockCount)+ " ---------------")
+		#print()
 		print("Input : ",end="")
 		print("'",end="")
 		for i in range(0,64,8):
 			print(chr(int(block[i:i+8],2)),end="")
 		print("'")
 		print("block : "+block)
-		print()
+		#print()
 
 		#Initial Permutation	
 		oip = ''	
 		for i in range(64):	
 			oip = oip + block[ip[i]-1]
-		result = "output of initial permutation : "+oip + "\n"
-		ofile+=result	
-		print(result)
-
 		block = oip
+		result = "output of initial permutation : "
+		ofile += result	
+		print(result,end="")
+		for l in range(0,64,8):
+			result = block[l:l+8] + " "
+			ofile += result
+			print(result,end="")
+		ofile+="\n"
+		print()
+
 
 		#16 Rounds of DES
 		left = block[:32]
@@ -244,24 +258,36 @@ def main():
 				result = outtext[l:l+8] + " "
 				ofile += result
 				print(result,end="")
+			ofile += "\n"
 			print()
 
 		#Final Permutation
-		ofile += "/n"
-		print()	
 		ofp = ''	
 		for i in range(64):	
 			ofp = ofp + block[fp[i]-1]
-		result = "output of final permutation : "+ofp + "\n"
-		ofile += result	
-		print(result)
 		block = ofp
+		result = "output of final permutation : "
+		ofile += result	
+		print(result,end="")
+		for l in range(0,64,8):
+			result = block[l:l+8] + " "
+			ofile += result
+			print(result,end="")
+		ofile+="\n"
+		print()
+		#print()
 
 		#output
-		# print("output: ",end="")
-		# for l in range(0,64,8):
-		# 	print(block[l:l+8],end=" ")
-		# print()
+		result = "output: "
+		ofile+=result
+		print(result,end="")
+		for l in range(0,64,8):
+			result = block[l:l+8] + " "
+			ofile += result
+			print(result,end="")
+		ofile+="\n"
+		print()
+		print()
 
 		# print("output : ",end="")
 		# for i in range(0,64,8):
