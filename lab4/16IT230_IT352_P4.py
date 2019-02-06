@@ -121,7 +121,7 @@ def genRk(a):
 
 def main():
 	a = input("Enter the PlainText: ")
-	a = a.replace(' ','')
+	#a = a.replace(' ','')
 	if len(a) > 40:
 		printf("Error: Plaintext should be max 40 bytes!")
 		return 0
@@ -143,7 +143,7 @@ def main():
 
 	a = input("Enter the Key: ")
 	print()
-	a = a.replace(' ','')
+	#a = a.replace(' ','')
 	n = len(a)
 
 	# if n > 8:
@@ -171,19 +171,21 @@ def main():
 		# print()
 
 		print("Input : ",end="")
+		print("'",end="")
 		for i in range(0,64,8):
 			print(chr(int(block[i:i+8],2)),end="")
-		print()
+		print("'")
 		print("block : "+block)
 		print()
 
 		#Initial Permutation	
 		oip = ''	
 		for i in range(64):	
-			oip = oip + block[ip[i]-1]	
-		print("output of initial permutation : "+oip)	
-		print()
-		
+			oip = oip + block[ip[i]-1]
+		result = "output of initial permutation : "+oip + "\n"
+		ofile+=result	
+		print(result)
+
 		block = oip
 
 		#16 Rounds of DES
@@ -226,26 +228,33 @@ def main():
 				left = xor(left,right,32)
 				right = temp
 				block = left+right
-				ofile += block
 			else:
 				right = xor(left,right,32)
 				left = temp
 			if i>=9:
-				print("output of round " + str(i+1) + " :-",end="")
+				result = "output of round " + str(i+1) + " :- "
+				ofile+=result	
+				print(result,end="")
 			else:
-				print("output of round  " + str(i+1) + " :-",end="")
+				result = "output of round  " + str(i+1) + " :- "
+				ofile+=result	
+				print(result,end="")
 			outtext = left+right
 			for l in range(0,64,8):
-				print(outtext[l:l+8],end=" ")
+				result = outtext[l:l+8] + " "
+				ofile += result
+				print(result,end="")
 			print()
 
 		#Final Permutation
+		ofile += "/n"
 		print()	
 		ofp = ''	
 		for i in range(64):	
-			ofp = ofp + block[fp[i]-1]	
-		print("output of final permutation : "+ofp)
-		print()
+			ofp = ofp + block[fp[i]-1]
+		result = "output of final permutation : "+ofp + "\n"
+		ofile += result	
+		print(result)
 		block = ofp
 
 		#output
